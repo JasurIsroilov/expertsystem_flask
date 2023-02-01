@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3 align="center">Слоты</h3>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ row.slt_name }}</td>
+                    <td>{{ row.slt_describe }}</td>
+                    <td>
+                        <a class="btn btn-info" href="{{ url_for('slots.edit_slot', slt_id=row.slt_id) }}" role="button">Изменить</a>
+                        <a class="btn btn-danger" href="{{ url_for('slots.delete_slot', slt_id=row.slt_id) }}" role="button">Удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-success" href="{{ url_for('slots.add_slot') }}" role="button">Добавить</a>
+    </div>
+    <br><br>
+{% endblock content %}

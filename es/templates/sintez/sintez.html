@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h3 align="center">Синтез технологического процесса</h3>
+    <br>
+    <h3 align="center">{{ rows['frame'] if rows['frame'] else 'Не найдено' }}</h3>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название слота</th>
+                <th scope="col">Значение слота</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows['choices'] %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+            <a class="btn btn-success" href="{{ url_for('sintez.process', stage=1) }}" role="button">Начать режим диалога</a>
+        {% if rows['frame'] %}
+            <a class="btn btn-success" href="{{ url_for('sintez.fpdf') }}" role="button">Генерировать отчет</a>
+        {% endif %}
+    </div>
+    <br><br>
+{% endblock content %}

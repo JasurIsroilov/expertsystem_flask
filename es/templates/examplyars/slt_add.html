@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content-section">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Значение слотов</th>
+                    <th scope="col">Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>
+                            <a class="btn btn-info" href="{{ url_for('examplyars.edit_slot_value', slv_id=row[0]) }}" role="button">Изменить</a>
+                            <a class="btn btn-danger" href="{{ url_for('examplyars.delete_slot_value', slv_id=row[0]) }}" role="button">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Добавить значение слота</legend>
+                <div class="form-group">
+                    {{ form.value.label(class="form-control-label") }}
+                    {% if form.value.errors %}
+                        {{ form.value(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.value.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.value(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <br>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    <br><br>
+    </div>
+{% endblock content %}

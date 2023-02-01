@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+        <form method="post" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Изменение значения слота</legend>
+                <div class="form-group">
+                    {{ form.value.label(class="form-control-label") }}
+                    {% if form.value.errors %}
+                        {{ form.value(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.value.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.value(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <br>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    <br><br>
+    </div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content-section">
+        <form method="post" action="{{ url_for('sintez.process', stage=stage) }}">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">{{slt_name}}</legend>
+                <div class="form-group">
+                    {{ form.slv_val.label(class="form-control-label") }}
+                    {% if form.slv_val.errors %}
+                        {{ form.slv_val(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.slv_val.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.slv_val(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <br>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    <br><br>
+    </div>
+{% endblock content %}

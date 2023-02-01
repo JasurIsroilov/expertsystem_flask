@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3 align="center">Экземпляры</h3>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название экземпляра</th>
+                <th scope="col">Слоты и их значения</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if rows %}
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ row['frm_name'] }}</td>
+                        <td>
+                            {% for slot in row['slots'] %}
+                                <b>{{ slot['slt_name'] }}:</b> {{ slot['slv_val'] }}
+                                <br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn btn-info" href="{{ url_for('examplyars.edit_examplyars', frm_id=row['frm_id']) }}" role="button">Изменить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-success" href="{{ url_for('examplyars.add_slot_value') }}" role="button">Добавить значение слотов</a>
+    </div>
+    <br><br>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% block users %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h3 align="center">Пользователи</h3>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Логин</th>
+                <th scope="col">Пароль</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ row.login }}</td>
+                    <td>{{ row.password }}</td>
+                    <td>{{ row.role }}</td>
+                    <td>
+                        <a class="btn btn-info" href="{{ url_for('users.edit_user', id=row.id) }}" role="button">Изменить</a>
+                        <a class="btn btn-danger" href="{{ url_for('users.delete_user', id=row.id) }}" role="button">Удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-success" href="{{ url_for('users.add_user') }}" role="button">Добавить</a>
+    </div>
+    <br><br>
+{% endblock users %}

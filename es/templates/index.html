@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if current_user.role == 'admin' %}
+        {% include 'users/list.html' %}
+    {% else %}
+        <h3 align="center">Главная страница</h3><br>
+        <h3 align="center">Ваша роль: {{ current_user.role }}</h3>
+    {% endif %}
+{% endblock content %}
